@@ -8,22 +8,26 @@
 	```
 	mage unit
 	```
+
 2. Integration test
 	
 	```
 	mage integration
 	```
+
 3. Format
 
 	```
 	mage format
 	```
-5. Clean
+
+4. Clean
 
 	```
 	mage clean
 	```
-4. All in one
+
+5. All in one
 
 	```
 	mage
