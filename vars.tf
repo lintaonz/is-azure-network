@@ -86,42 +86,15 @@ variable "vnet_tags" {
   default     = {}
 }
 
+variable "provision_default_route_table" {
+  description = "Whether to provision the default route table"
+  default     = true
+  type        = bool
+}
+
 variable "route_tables" {
   description = "Route tables"
-  type = list(object(
-    {
-      name  = string
-      route = list(map(string))
-      tags  = map(string)
-    }
-  ))
-
-  default = [
-    {
-      name = "z-prod-to_obeafw-rt"
-      route = [
-        {
-          name           = "blackhole_fw_mgmt"
-          address_prefix = "10.18.2.0/24"
-          next_hop_type  = "None"
-        },
-        {
-          name           = "blackhole_fw_public"
-          address_prefix = "10.18.3.0/24"
-          next_hop_type  = "None"
-        },
-        {
-          name                   = "default_2_LB_obewfw"
-          address_prefix         = "0.0.0.0/0"
-          next_hop_type          = "VirtualAppliance"
-          next_hop_in_ip_address = "10.18.4.21"
-        }
-      ],
-      tags = {
-        name = "z-prod-to_obeafw-rt"
-      }
-    }
-  ]
+  default     = {}
 }
 
 variable "route_table_association" {

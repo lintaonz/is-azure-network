@@ -63,8 +63,8 @@ resource "random_string" "this_rt" {
 }
 
 resource "azurerm_route_table" "this_rt" {
-  for_each            = { for i in var.route_tables : i["name"] => i }
-  name                = "${each.value["name"]}-${random_string.this_rt.result}"
+  for_each            = local.route_tables
+  name                = "${each.key}-${random_string.this_rt.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.this_rg.name
 
