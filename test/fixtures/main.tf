@@ -3,7 +3,7 @@ module "test" {
   create_vnet              = true
   peer_with_hub            = true
   peer_with_commvault_vnet = true
-  envrionment              = "prod"
+  environment              = "prod"
   vnet_name_prefix         = "prod-test-vnet"
   vnet_address_space       = ["10.18.0.0/21"]
   subnet_prefixes          = ["10.18.1.0/24", "10.18.2.0/24"]

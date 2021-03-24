@@ -18,7 +18,7 @@ locals {
   common_tags = merge(local.default_common_tags, var.common_tags)
 
   default_route_table = {
-    "z-${var.envrionment}-to_obeafw-rt" = {
+    "z-${var.environment}-to_obeafw-rt" = {
       route = [
         {
           name           = "blackhole_fw_mgmt"
@@ -38,11 +38,11 @@ locals {
         }
       ],
       tags = {
-        name = "z-${var.envrionment}-to_obeafw-rt"
+        name = "z-${var.environment}-to_obeafw-rt"
       }
     }
   }
   route_tables = var.provision_default_route_table ? merge(local.default_route_table, var.route_tables) : var.route_tables
 
-  vnet_rg_name = coalesce(var.vnet_rg_name, "${var.envrionment}-vnet-rg")
+  vnet_rg_name = coalesce(var.vnet_rg_name, "${var.environment}-vnet-rg")
 }
