@@ -57,6 +57,27 @@ module "vnet_peering_with_hub" {
   allow_gateway_dest_transit        = true
 }
 
+module "vnet_peering_with_commvault_vnet" {
+  source  = "claranet/vnet-peering/azurerm"
+  version = "4.0.0"
+  count   = var.peer_with_commvault_vnet ? 1 : 0
+
+  providers = {
+    azurerm.src = azurerm
+    azurerm.dst = azurerm.management
+  }
+
+  vnet_src_id                       = module.vnet[0].vnet_id
+  vnet_dest_id                      = var.commvault_vnet_id
+  use_remote_src_gateway            = false
+  allow_forwarded_src_traffic       = true
+  allow_virtual_src_network_access  = true
+  allow_virtual_dest_network_access = true
+  allow_forwarded_dest_traffic      = true
+  allow_gateway_dest_transit        = false
+}
+
+
 resource "random_string" "this_rt" {
   length  = 6
   special = false

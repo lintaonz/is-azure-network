@@ -8,6 +8,12 @@ provider "azurerm" {
   features {}
 }
 
+provider "azurerm" {
+  alias           = "management"
+  subscription_id = "5b74d5cd-8e57-4e60-b745-fb2d0c394320"
+  features {}
+}
+
 variable "vnet_rg_name" {
   description = "The name of resource group to host virtual network"
   default     = ""
@@ -66,6 +72,18 @@ variable "peer_with_hub" {
   description = "Whether the current vnet peers with hub network"
   type        = bool
   default     = true
+}
+
+variable "peer_with_commvault_vnet" {
+  description = "Whether the current vnet peers with CommVault network"
+  type        = bool
+  default     = false
+}
+
+variable "commvault_vnet_id" {
+  description = "VNET ID of CommVault network"
+  type        = string
+  default     = "/subscriptions/5b74d5cd-8e57-4e60-b745-fb2d0c394320/resourceGroups/prod-commvault-rg/providers/Microsoft.Network/virtualNetworks/z-prod-commvault-vnet-7XUf8Y"
 }
 
 variable "common_tags" {
