@@ -2,7 +2,7 @@ locals {
   default_common_tags = {
     cost_center        = ""
     created_using      = "Terraform"
-    environment        = var.envrionment
+    environment        = var.environment
     hours_of_operation = ""
     owner              = ""
     version            = ""

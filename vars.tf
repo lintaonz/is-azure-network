@@ -19,8 +19,8 @@ variable "vnet_rg_name" {
   default     = ""
   type        = string
 }
-variable "envrionment" {
-  description = "The name of this envrionment"
+variable "environment" {
+  description = "The name of this environment"
   default     = "prod"
   type        = string
 }
