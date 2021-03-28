@@ -84,10 +84,11 @@ resource "random_string" "this_rt" {
 }
 
 resource "azurerm_route_table" "this_rt" {
-  for_each            = local.route_tables
-  name                = "${each.key}-${random_string.this_rt.result}"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.this_rg.name
+  for_each                      = local.route_tables
+  name                          = "${each.key}-${random_string.this_rt.result}"
+  location                      = var.location
+  resource_group_name           = azurerm_resource_group.this_rg.name
+  disable_bgp_route_propagation = lookup(each.value, "disable_bgp_route_propagation", null)
 
   dynamic "route" {
     for_each = each.value["route"]

@@ -83,7 +83,7 @@ variable "peer_with_commvault_vnet" {
 variable "commvault_vnet_id" {
   description = "VNET ID of CommVault network"
   type        = string
-  default     = "/subscriptions/5b74d5cd-8e57-4e60-b745-fb2d0c394320/resourceGroups/prod-commvault-rg/providers/Microsoft.Network/virtualNetworks/z-prod-commvault-vnet-VxPgqa"
+  default     = "/subscriptions/5b74d5cd-8e57-4e60-b745-fb2d0c394320/resourceGroups/prod-commvault-rg/providers/Microsoft.Network/virtualNetworks/z-prod-commvault-vnet-aKtkTh"
 }
 
 variable "common_tags" {

@@ -19,6 +19,7 @@ locals {
 
   default_route_table = {
     "z-${var.environment}-to_obeafw-rt" = {
+      disable_bgp_route_propagation = true,
       route = [
         {
           name           = "blackhole_fw_mgmt"
