@@ -23,11 +23,13 @@ module "vnet" {
   # check main.tf in this Azure/vnet/azurerm module
   count = var.create_vnet ? 1 : 0
 
-  resource_group_name = azurerm_resource_group.this_rg.name
-  vnet_name           = "${var.vnet_name_prefix}-${random_string.vnet_random.result}"
-  address_space       = var.vnet_address_space
-  subnet_prefixes     = var.subnet_prefixes
-  subnet_names        = var.subnet_names
+  resource_group_name                                   = azurerm_resource_group.this_rg.name
+  vnet_name                                             = "${var.vnet_name_prefix}-${random_string.vnet_random.result}"
+  address_space                                         = var.vnet_address_space
+  subnet_prefixes                                       = var.subnet_prefixes
+  subnet_names                                          = var.subnet_names
+  subnet_service_endpoints                              = var.subnet_service_endpoints
+  subnet_enforce_private_link_endpoint_network_policies = var.subnet_enforce_private_link_endpoint_network_policies
   tags = merge(
     local.common_tags,
     {
