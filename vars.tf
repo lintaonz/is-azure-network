@@ -19,6 +19,14 @@ variable "vnet_rg_name" {
   default     = ""
   type        = string
 }
+
+# If no values specified, this defaults to Azure DNS 
+variable "dns_servers" {
+  description = "The DNS servers to be used with vNet."
+  type        = list(string)
+  default     = []
+}
+
 variable "environment" {
   description = "The name of this environment"
   default     = "prod"
