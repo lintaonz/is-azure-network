@@ -115,7 +115,7 @@ resource "azurerm_route_table" "this_rt_ignore_route_changes" {
   )
 }
 
-resource "azurerm_route_table" "this_rt_normal" {
+resource "azurerm_route_table" "this_rt" {
   for_each                      = local.route_tables_normal
   name                          = "${each.key}-${random_string.this_rt.result}"
   location                      = var.location
@@ -144,5 +144,5 @@ resource "azurerm_subnet_route_table_association" "vm_subnet" {
   }
 
   subnet_id      = module.vnet[0].vnet_subnets[each.key]
-  route_table_id = lookup(lookup(merge(azurerm_route_table.this_rt_normal, azurerm_route_table.this_rt_ignore_route_changes), each.value, {}), "id", "")
+  route_table_id = lookup(lookup(merge(azurerm_route_table.this_rt, azurerm_route_table.this_rt_ignore_route_changes), each.value, {}), "id", "")
 }
