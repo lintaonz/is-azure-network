@@ -87,8 +87,36 @@ resource "random_string" "this_rt" {
   special = false
 }
 
-resource "azurerm_route_table" "this_rt" {
-  for_each                      = local.route_tables
+resource "azurerm_route_table" "this_rt_ignore_route_changes" {
+  lifecycle {
+    ignore_changes = [
+      route
+    ]
+  }
+  for_each                      = local.route_tables_ignore_route_changes
+  name                          = "${each.key}-${random_string.this_rt.result}"
+  location                      = var.location
+  resource_group_name           = azurerm_resource_group.this_rg.name
+  disable_bgp_route_propagation = lookup(each.value, "disable_bgp_route_propagation", null)
+
+  dynamic "route" {
+    for_each = each.value["route"]
+    content {
+      name                   = route.value["name"]
+      address_prefix         = route.value["address_prefix"]
+      next_hop_type          = route.value["next_hop_type"]
+      next_hop_in_ip_address = lookup(route.value, "next_hop_in_ip_address", null)
+    }
+  }
+
+  tags = merge(
+    local.common_tags,
+    each.value["tags"]
+  )
+}
+
+resource "azurerm_route_table" "this_rt_normal" {
+  for_each                      = local.route_tables_normal
   name                          = "${each.key}-${random_string.this_rt.result}"
   location                      = var.location
   resource_group_name           = azurerm_resource_group.this_rg.name
@@ -116,5 +144,5 @@ resource "azurerm_subnet_route_table_association" "vm_subnet" {
   }
 
   subnet_id      = module.vnet[0].vnet_subnets[each.key]
-  route_table_id = azurerm_route_table.this_rt[each.value].id
+  route_table_id = lookup(lookup(merge(azurerm_route_table.this_rt_normal, azurerm_route_table.this_rt_ignore_route_changes), each.value, {}), "id", "")
 }
