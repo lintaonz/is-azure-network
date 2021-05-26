@@ -140,9 +140,18 @@ resource "azurerm_route_table" "this_rt" {
 
 resource "azurerm_subnet_route_table_association" "vm_subnet" {
   for_each = { for k, v in var.route_table_association :
-    index(var.subnet_names, k) => v
+    index(var.subnet_names, k) => v if lookup(azurerm_route_table.this_rt, v, "") != ""
   }
 
   subnet_id      = module.vnet[0].vnet_subnets[each.key]
-  route_table_id = lookup(lookup(merge(azurerm_route_table.this_rt, azurerm_route_table.this_rt_ignore_route_changes), each.value, {}), "id", "")
+  route_table_id = azurerm_route_table.this_rt[each.value].id
+}
+
+resource "azurerm_subnet_route_table_association" "subnet_ignore_route_changes" {
+  for_each = { for k, v in var.route_table_association :
+    index(var.subnet_names, k) => v if lookup(azurerm_route_table.this_rt_ignore_route_changes, v, "") != ""
+  }
+
+  subnet_id      = module.vnet[0].vnet_subnets[each.key]
+  route_table_id = azurerm_route_table.this_rt_ignore_route_changes[each.value].id
 }

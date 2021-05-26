@@ -37,7 +37,7 @@ module "test" {
     },
     "z-dev-aks-rt" = {
       disable_bgp_route_propagation = true,
-      ignore_route_changes          = false,
+      ignore_route_changes          = true,
       route = [
         {
           name           = "blackhole_fw_mgmt"
