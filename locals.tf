@@ -49,4 +49,12 @@ locals {
   route_tables_normal               = { for k, v in local.route_tables : k => v if !lookup(v, "ignore_route_changes", false) }
 
   vnet_rg_name = coalesce(var.vnet_rg_name, "${var.environment}-vnet-rg")
+
+  nsg_names = distinct(values(var.nsg_associations))
+  nsg_index = { for i in local.nsg_names :
+    i => "dummy"
+  }
+  nsg_ids = { for k, v in var.nsg_associations :
+    k => azurerm_network_security_group.this_nsg[v].id
+  }
 }

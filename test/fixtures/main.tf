@@ -66,4 +66,9 @@ module "test" {
     "subnet-1" = "z-prod-to_obeafw-rt"
     "subnet-2" = "z-dev-aks-rt"
   }
+
+  nsg_associations = {
+    "subnet-1" = "tes-nsg"
+    "subnet-2" = "test-nsg2"
+  }
 }

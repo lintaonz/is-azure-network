@@ -64,6 +64,13 @@ variable "subnet_prefixes" {
   default     = []
 }
 
+variable "nsg_associations" {
+  description = "A map of subnet name to name prefix of Network Security Groups"
+  type        = map(string)
+
+  default = {}
+}
+
 variable "subnet_names" {
   description = "A list of public subnets inside the vNet."
   type        = list(string)

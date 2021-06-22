@@ -30,6 +30,7 @@ module "vnet" {
   subnet_prefixes                                       = var.subnet_prefixes
   dns_servers                                           = var.dns_servers
   subnet_names                                          = var.subnet_names
+  nsg_ids                                               = local.nsg_ids
   subnet_service_endpoints                              = var.subnet_service_endpoints
   subnet_enforce_private_link_endpoint_network_policies = var.subnet_enforce_private_link_endpoint_network_policies
   tags = merge(
@@ -154,4 +155,19 @@ resource "azurerm_subnet_route_table_association" "subnet_ignore_route_changes" 
 
   subnet_id      = module.vnet[0].vnet_subnets[each.key]
   route_table_id = azurerm_route_table.this_rt_ignore_route_changes[each.value].id
+}
+
+resource "random_string" "this_nsg" {
+  for_each = local.nsg_index
+  special  = false
+  length   = 6
+}
+resource "azurerm_network_security_group" "this_nsg" {
+  for_each            = local.nsg_index
+  name                = "${each.key}-${random_string.this_nsg[each.key].result}"
+  resource_group_name = azurerm_resource_group.this_rg.name
+  location            = var.location
+  tags = merge(local.common_tags, {
+    name = each.key
+  })
 }
