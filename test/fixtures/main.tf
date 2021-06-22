@@ -68,7 +68,7 @@ module "test" {
   }
 
   nsg_associations = {
-    "subnet-1" = "tes-nsg"
-    "subnet-2" = "test-nsg2"
+    "subnet-1" = "test-nsg"
+    "subnet-2" = "test-nsg"
   }
 }

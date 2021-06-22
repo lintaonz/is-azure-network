@@ -50,8 +50,7 @@ locals {
 
   vnet_rg_name = coalesce(var.vnet_rg_name, "${var.environment}-vnet-rg")
 
-  nsg_names = distinct(values(var.nsg_associations))
-  nsg_index = { for i in local.nsg_names :
+  nsg_index = { for i in distinct(values(var.nsg_associations)) :
     i => "dummy"
   }
   nsg_ids = { for k, v in var.nsg_associations :
