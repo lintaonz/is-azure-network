@@ -17,8 +17,9 @@ resource "random_string" "vnet_random" {
 }
 
 module "vnet" {
-  source  = "Azure/vnet/azurerm"
-  version = "2.4.0"
+  source = "github.com/stanleyz/terraform-azurerm-vnet"
+  #source  = "Azure/vnet/azurerm"
+  #version = "2.4.0"
   # This check is litterally a workaround for the stupid data resource in that Azure VNET module to check whether the specified resource group exists or not
   # check main.tf in this Azure/vnet/azurerm module
   count = var.create_vnet ? 1 : 0
@@ -30,6 +31,7 @@ module "vnet" {
   subnet_prefixes                                       = var.subnet_prefixes
   dns_servers                                           = var.dns_servers
   subnet_names                                          = var.subnet_names
+  subnet_delegation                                     = var.subnet_delegation
   nsg_ids                                               = local.nsg_ids
   subnet_service_endpoints                              = var.subnet_service_endpoints
   subnet_enforce_private_link_endpoint_network_policies = var.subnet_enforce_private_link_endpoint_network_policies

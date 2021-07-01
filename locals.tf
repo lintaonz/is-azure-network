@@ -46,7 +46,7 @@ locals {
   }
   route_tables                      = var.provision_default_route_table ? merge(local.default_route_table, var.route_tables) : var.route_tables
   route_tables_ignore_route_changes = { for k, v in local.route_tables : k => v if lookup(v, "ignore_route_changes", false) }
-  route_tables_normal               = { for k, v in local.route_tables : k => v if !lookup(v, "ignore_route_changes", false) }
+  route_tables_normal               = { for k, v in local.route_tables : k => v if ! lookup(v, "ignore_route_changes", false) }
 
   vnet_rg_name = coalesce(var.vnet_rg_name, "${var.environment}-vnet-rg")
 

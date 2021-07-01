@@ -142,6 +142,12 @@ variable "route_tables" {
   default     = {}
 }
 
+variable "subnet_delegation" {
+  description = "A map of subnet name to delegation block on the subnet"
+  type        = map(map(any))
+  default     = {}
+}
+
 variable "route_table_association" {
   description = "Specify which route table associates which subnet"
   type        = map(string)
