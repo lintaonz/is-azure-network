@@ -119,6 +119,11 @@ resource "azurerm_route_table" "this_rt_ignore_route_changes" {
 }
 
 resource "azurerm_route_table" "this_rt" {
+  lifecycle {
+  ignore_changes = [
+    name
+  ]
+
   for_each                      = local.route_tables_normal
   name                          = "${each.key}-${random_string.this_rt.result}"
   location                      = var.location
@@ -142,6 +147,11 @@ resource "azurerm_route_table" "this_rt" {
 }
 
 resource "azurerm_subnet_route_table_association" "vm_subnet" {
+    lifecycle {
+  ignore_changes = [
+    route_table.id
+  ]
+
   for_each = { for k, v in var.route_table_association :
     index(var.subnet_names, k) => v if lookup(local.route_tables_normal, v, "") != ""
   }
