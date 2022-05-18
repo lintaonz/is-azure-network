@@ -1,52 +1,76 @@
-# Pre-requisite
-## Install go-lang, mag
-# How-to:
-## Develop your code
-## mage your friend
+# How-to test the module with [terratest](https://github.com/gruntwork-io/terratest)
+
+## Pre-requisite
+
+### Install go-lang
+
+Please follow the go [installation guide](https://go.dev/doc/install) to install go-lang.
+
+### Install mage
+
+Meta is a Make/rake-like dev tool using Go. Please follow the [installation guide](https://github.com/magefile/mage#installation) to install mage.
+
+### Install modules for testing
+
+```bash
+go mod download github.com/gruntwork-io/terratest
+go mod download github.com/magefile/mage
+go get github.com/gruntwork-io/terratest/modules/ssh@v0.32.16
+go get github.com/gruntwork-io/terratest/modules/terraform@v0.32.16
+```
+
+## Develop your code with mage
+
 1. Unit test
-	
-	```
-	mage unit
-	```
 
-2. Integration test
-	
-	```
-	mage integration
-	```
+    ```bash
+    mage unit
+    ```
 
-3. Format
+1. Integration test
 
-	```
-	mage format
-	```
+    ```bash
+    mage integration
+    ```
 
-4. Clean
+1. Format
 
-	```
-	mage clean
-	```
+    ```bash
+    mage format
+    ```
 
-5. All in one
+1. Clean
 
-	```
-	mage
-	```
+    ```bash
+    mage clean
+    ```
 
-## Fix the issues
-## Have fun
-# Dive in
-## magefile.go
+1. All in one
 
-	`magefile.go` in Go-lang is the `Makefile` in C
+    ```bash
+    mage
+    ```
 
-	```
-	cat magefile.go
-	```
-## Test
-### test/unit/plan_test.go
+## Dive in
+
+### magefile.go
+
+`magefile.go` in Go-lang is the `Makefile` in C
+
+```bash
+cat magefile.go
+```
+
+### Test
+
+#### test/unit/plan_test.go
+
 Essentially this issues `terraform plan` using terraform code in `test/fixtures/main.tf`
-### test/integration/apply_test.go
-This issues `terrafrom apply` using same terraform code in `test/fixtures/main.tf`
-### test/fixtures/main.tf
+
+#### test/integration/apply_test.go
+
+This issues `terraform apply` using same terraform code in `test/fixtures/main.tf`
+
+#### test/fixtures/main.tf
+
 This is the sample code used by unit and integration tests.
