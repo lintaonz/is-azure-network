@@ -45,7 +45,7 @@ module "vnet" {
 
 module "vnet_peering_with_hub" {
   source  = "claranet/vnet-peering/azurerm"
-  version = "4.0.0"
+  version = "5.0.2"
   count   = var.peer_with_hub ? 1 : 0
 
   providers = {
