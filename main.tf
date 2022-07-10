@@ -65,7 +65,7 @@ module "vnet_peering_with_hub" {
 
 module "vnet_peering_with_commvault_vnet" {
   source  = "claranet/vnet-peering/azurerm"
-  version = "4.0.0"
+  version = "5.0.2"
   count   = var.peer_with_commvault_vnet ? 1 : 0
 
   providers = {
