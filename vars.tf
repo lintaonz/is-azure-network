@@ -137,3 +137,9 @@ variable "route_table_association" {
   type        = map(string)
   default     = {}
 }
+
+variable "use_caf_naming" {
+  description = "Use the Azure CAF naming provider to generate default resource name. `custom_rg_name` override this if set. Legacy default name is used if this is set to `false`."
+  type        = bool
+  default     = false
+}
