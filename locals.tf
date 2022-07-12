@@ -24,19 +24,19 @@ locals {
       route = [
         {
           name           = "blackhole_fw_mgmt"
-          address_prefix = var.environment == "prod" ? "10.18.2.0/24" : "10.19.2.0/24"
+          address_prefix = var.environment != "dr" ? "10.18.2.0/24" : "10.19.2.0/24"
           next_hop_type  = "None"
         },
         {
           name           = "blackhole_fw_public"
-          address_prefix = var.environment == "prod" ? "10.18.3.0/24" : "10.19.3.0/24"
+          address_prefix = var.environment != "dr" ? "10.18.3.0/24" : "10.19.3.0/24"
           next_hop_type  = "None"
         },
         {
           name                   = "default_2_LB_obewfw"
           address_prefix         = "0.0.0.0/0"
           next_hop_type          = "VirtualAppliance"
-          next_hop_in_ip_address = var.environment == "prod" ? "10.18.4.21" : "10.19.4.21"
+          next_hop_in_ip_address = var.environment != "dr" ? "10.18.4.21" : "10.19.4.21"
         }
       ],
       tags = {
