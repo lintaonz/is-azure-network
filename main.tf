@@ -45,7 +45,7 @@ module "vnet" {
 
 module "vnet_peering_with_hub" {
   source  = "claranet/vnet-peering/azurerm"
-  version = "4.0.0"
+  version = "5.0.2"
   count   = var.peer_with_hub ? 1 : 0
 
   providers = {
@@ -61,11 +61,12 @@ module "vnet_peering_with_hub" {
   allow_virtual_dest_network_access = true
   allow_forwarded_dest_traffic      = true
   allow_gateway_dest_transit        = true
+  use_caf_naming                    = var.use_caf_naming
 }
 
 module "vnet_peering_with_commvault_vnet" {
   source  = "claranet/vnet-peering/azurerm"
-  version = "4.0.0"
+  version = "5.0.2"
   count   = var.peer_with_commvault_vnet ? 1 : 0
 
   providers = {
@@ -81,6 +82,7 @@ module "vnet_peering_with_commvault_vnet" {
   allow_virtual_dest_network_access = true
   allow_forwarded_dest_traffic      = true
   allow_gateway_dest_transit        = false
+  use_caf_naming                    = var.use_caf_naming
 }
 
 
