@@ -122,7 +122,7 @@ resource "azurerm_route_table" "this_rt_ignore_route_changes" {
 resource "azurerm_route_table" "this_rt" {
   lifecycle {
     ignore_changes = [
-      name
+      name, route
     ]
   }
 
